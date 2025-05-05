@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title> Dogs </title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="script.js" defer></script>
+    <style>
+        .container {
+            padding: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1> Dogs </h1>
+    </header>
+
+    <nav id="nav">
+        <ul>
+            <li><a href="home.html"> Home </a></li>
+            <li><a href="stocks.html"> Stocks </a></li>
+            <li><a href="dogs.html"> Dogs </a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h2 style="text-align: center;">Dog Carousel</h2>
+
+        <div class="slideshow-container" id="carousel-container">
+            <!-- Slides will be inserted here dynamically -->
+            
+            <a class="prev" onclick="plusSlides(-1)"></a>
+            <a class="next" onclick="plusSlides(1)"></a>
+        </div>
+
+        <br>
+
+        <div style="text-align:center" id="dots-container">
+            <!-- Dots will be inserted here dynamically -->
+        </div>
+        
+    <hr>
+
+    <h2>Dog Breeds</h2>
+    <div id="breedsContainer"></div>
+
+    <div id="breedInfo">
+        <h3 id="breedName"></h3>
+        <p id="breedDesc"></p>
+        <p><strong>Life Span:</strong> <span id="breedLife"></span> years</p>
+    </div>
+
+    </div>
+
+    <footer>
+        <p>Copyright @ 2025. All rights reserved.</p>
+    </footer>
+
+</body>
+
+</html>
