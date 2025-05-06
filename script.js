@@ -1,5 +1,6 @@
-// Home Page
+document.addEventListener('DOMContentLoaded', function () {
 
+// Home Page
 async function fetchQuote() {
     try {
       const response = await fetch('https://zenquotes.io/api/random');
@@ -19,7 +20,6 @@ async function fetchQuote() {
   window.onload = fetchQuote;
 
 // Stocks Page
-
 const apiKey = "64zBN7D5tA5REqS3Kxt1LF5bevgfGUuY";
     let chart; 
 
@@ -64,7 +64,8 @@ const apiKey = "64zBN7D5tA5REqS3Kxt1LF5bevgfGUuY";
                     datasets: [{
                         label: `${ticker} Closing Prices`,
                         data: closingPrices,
-                        borderColor: 'blue',
+                        color: 'black',
+                        borderColor: 'rosybrown',
                         fill: false,
                         tension: 0.1
                     }]
@@ -113,114 +114,162 @@ const apiKey = "64zBN7D5tA5REqS3Kxt1LF5bevgfGUuY";
     loadRedditStocks();
 
 // Dogs Page
- // Load 10 random dog imageset slideIndex = 1;
+ // Load 10 random dog image
+let slideIndex = 1;
 
- let slideIndex = 1;
+function showSlides(n) {
+  let i;
+  const slides = document.getElementsByClassName("mySlides");
+  const dots = document.getElementsByClassName("dot");
+  if (n > slides.length) { slideIndex = 1; }
+  if (n < 1) { slideIndex = slides.length; }
+  for (i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active", "");
+  }
+  if (slides.length > 0) {
+    slides[slideIndex - 1].style.display = "block";
+    dots[slideIndex - 1].className += " active";
+  }
+}
 
- // Function to update slides
- function showSlides(n) {
-   let i;
-   const slides = document.getElementsByClassName("mySlides");
-   const dots = document.getElementsByClassName("dot");
-   if (n > slides.length) {slideIndex = 1}
-   if (n < 1) {slideIndex = slides.length}
-   for (i = 0; i < slides.length; i++) {
-     slides[i].style.display = "none";
-   }
-   for (i = 0; i < dots.length; i++) {
-     dots[i].className = dots[i].className.replace(" active", "");
-   }
-   if (slides.length > 0) {
-     slides[slideIndex-1].style.display = "block";
-     dots[slideIndex-1].className += " active";
-   }
- }
- 
- function plusSlides(n) {
-   showSlides(slideIndex += n);
- }
- 
- function currentSlide(n) {
-   showSlides(slideIndex = n);
- }
- 
- // Fetch dog images and build slides
- fetch('https://dog.ceo/api/breeds/image/random/10')
-   .then(response => response.json())
-   .then(data => {
-     const imageUrls = data.message;
-     const carouselContainer = document.getElementById('carousel-container');
-     const dotsContainer = document.getElementById('dots-container');
- 
-     imageUrls.forEach((url, index) => {
-       // Create slide div
-       const slideDiv = document.createElement('div');
-       slideDiv.classList.add('mySlides', 'fade');
- 
-       // Number text
-       const numberText = document.createElement('div');
-       numberText.classList.add('numbertext');
-       numberText.textContent = `${index + 1} / ${imageUrls.length}`;
- 
-       // Image
-       const img = document.createElement('img');
-       img.src = url;
-       img.style.width = '100%';
- 
-       // Caption (optional)
-       const caption = document.createElement('div');
-       caption.classList.add('text');
-       caption.textContent = 'Cute Doggo!';
- 
-       // Append elements
-       slideDiv.appendChild(numberText);
-       slideDiv.appendChild(img);
-       slideDiv.appendChild(caption);
- 
-       carouselContainer.insertBefore(slideDiv, carouselContainer.querySelector('.prev'));
- 
-       // Create dot
-       const dot = document.createElement('span');
-       dot.classList.add('dot');
-       dot.onclick = () => currentSlide(index + 1);
-       dotsContainer.appendChild(dot);
-     });
- 
-     // Initialize first slide
-     showSlides(slideIndex);
-   })
-   .catch(error => console.error('Error fetching dog images:', error));
+function plusSlides(n) {
+  showSlides(slideIndex += n);
+}
 
-// Load breeds and create buttons
-async function loadBreeds() {
-    try {
-        let response = await fetch('https://dogapi.dog/api/v2/breeds');
-        let data = await response.json();
-        let breeds = data.data;
-        let container = document.getElementById('breedsContainer');
+function currentSlide(n) {
+  showSlides(slideIndex = n);
+}
 
-        breeds.forEach(breed => {
-            let btn = document.createElement('button');
-            btn.classList.add('breed-btn');
-            btn.textContent = breed.attributes.name;
-            btn.setAttribute('data-id', breed.id);
-            btn.addEventListener('click', () => showBreedInfo(breed));
-            container.appendChild(btn);
-        });
-    } catch (err) {
-        console.error('Error loading breeds:', err);
+
+// Fetch breeds and images together
+Promise.all([
+    fetch('https://dogapi.dog/api/v2/breeds').then(res => res.json()),
+    fetch('https://dog.ceo/api/breeds/image/random/10').then(res => res.json())
+  ])
+  .then(([breedData, imageData]) => {
+    const allBreedsData = breedData.data;
+    const imageUrls = imageData.message;
+  
+    const carouselContainer = document.getElementById('carousel-container');
+    const dotsContainer = document.getElementById('dots-container');
+    const container = document.getElementById('breedsContainer');
+  
+    // Render the 10 carousel images
+    imageUrls.forEach((url, index) => {
+      const slideDiv = document.createElement('div');
+      slideDiv.classList.add('mySlides', 'fade');
+  
+      const numberText = document.createElement('div');
+      numberText.classList.add('numbertext');
+      numberText.textContent = `${index + 1} / ${imageUrls.length}`;
+  
+      const img = document.createElement('img');
+      img.src = url;
+      img.style.width = '100%';
+  
+      slideDiv.appendChild(numberText);
+      slideDiv.appendChild(img);
+      carouselContainer.insertBefore(slideDiv, carouselContainer.querySelector('.prev'));
+  
+      const dot = document.createElement('span');
+      dot.classList.add('dot');
+      dot.onclick = () => currentSlide(index + 1);
+      dotsContainer.appendChild(dot);
+    });
+  
+    // Make a copy to avoid mutating original
+    const breedsCopy = [...allBreedsData];
+  
+    // Proper Fisher-Yates shuffle
+    function shuffle(array) {
+      for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+      }
     }
-}
+  
+    shuffle(breedsCopy);
+  
+    // Slice the shuffled copy
+    const selectedBreeds = breedsCopy.slice(0, 10);
+  
+    // Create buttons for the 10 truly random breeds
+    selectedBreeds.forEach(breed => {
+      const btn = document.createElement('button');
+      btn.classList.add('breed-btn');
+      btn.textContent = breed.attributes.name;
+      btn.setAttribute('data-id', breed.id);
+      btn.addEventListener('click', () => showBreedInfo(breed));
+      container.appendChild(btn);
+    });
+  
+    showSlides(slideIndex);
+  })
+  .catch(err => console.error('Error:', err));
+  
 
-// Show breed info in container
+// Show breed info
 function showBreedInfo(breed) {
-    document.getElementById('breedName').textContent = breed.attributes.name;
-    document.getElementById('breedDesc').textContent = breed.attributes.description || 'No description available.';
-    let lifeMin = breed.attributes.life.min || '?';
-    let lifeMax = breed.attributes.life.max || '?';
-    document.getElementById('breedLife').textContent = `${lifeMin} - ${lifeMax}`;
-    document.getElementById('breedInfo').style.display = 'block';
-    document.getElementById('breedInfo').scrollIntoView({ behavior: 'smooth' });
+  document.getElementById('breedName').textContent = breed.attributes.name;
+  document.getElementById('breedDesc').textContent = breed.attributes.description || 'No description available.';
+  let lifeMin = breed.attributes.life.min || '?';
+  let lifeMax = breed.attributes.life.max || '?';
+  document.getElementById('breedLife').textContent = `${lifeMin} - ${lifeMax}`;
+  document.getElementById('breedInfo').style.display = 'block';
+  document.getElementById('breedInfo').scrollIntoView({ behavior: 'smooth' });
 }
 
+window.fetchStockData = fetchStockData;
 
+});
+
+// Audio Navigation
+if (annyang) {
+    // Define the commands
+    const commands = {
+        // Say hello
+        'hello': function() {
+            alert('Hello World!');
+        },
+
+        // Change the background color
+        'change the color to *color': function(color) {
+            document.body.style.backgroundColor = color;
+        },
+
+        // Navigate to a different page
+        'navigate to *page': function(page) {
+            page = page.toLowerCase();
+            if (page === 'home') {
+                window.location.href = 'home.html';
+            } else if (page === 'stocks') {
+                window.location.href = 'stocks.html';
+            } else if (page === 'dogs') {
+                window.location.href = 'dogs.html';
+            } else {
+                alert("Page not found");
+            }
+        }
+    };
+
+    // Add the commands to annyang
+    annyang.addCommands(commands);
+
+    // Setup Speech KITT for a visual interface
+    SpeechKITT.annyang();
+    SpeechKITT.setStylesheet('//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/themes/flat.css');
+    SpeechKITT.vroom();
+
+    // Start listening on click
+    document.getElementById('startListening').addEventListener('click', function() {
+        annyang.start();
+    });
+
+    // Stop listening on click
+    document.getElementById('stopListening').addEventListener('click', function() {
+        annyang.abort();
+    });
+}
