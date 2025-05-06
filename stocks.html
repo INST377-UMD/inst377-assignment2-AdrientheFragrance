@@ -3,7 +3,11 @@
 <head>
     <title> Stocks </title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js" defer></script>
+
 </head>
 <body>
 
@@ -19,8 +23,7 @@
         </ul>
     </nav>
 
-    <div class="container">
-        <div class="form-content">
+    <div class="container" style="padding: 10px; text-align: center;">
             <br>
             <h2> Stock Charts </h2> 
 
@@ -33,13 +36,15 @@
                 <option value="60">60 Days</option>
                 <option value="90">90 Days</option>
             </select>
-            <br><br>
-            <button class="button-54" role="button" onclick="fetchStockData()"> Get Stock Data </button>
+            <button class="button-54" role="button" style="margin-left: 30px;" onclick="fetchStockData()"> Get Stock Data </button>
 
-            <div style="max-width: 800px; margin-top: 30px;">
-            <canvas id="stockChart"></canvas>
-        </div>
+            <div style="max-width: 1000px; margin: 30px auto; text-align: center;">
+                <canvas id="stockChart"></canvas>
+            </div>
+        
+        
 
+        <div class="container" style="margin: 30px auto; text-align: center;">
         <h2>Top 5 Stocks on Reddit</h2>
         <table>
             <thead>
@@ -52,7 +57,22 @@
             <tbody id="redditTableBody"></tbody>
         </table>
 
-    </div>
+        </div>
+        </div>
+
+        <div class="sub-section">
+            <h2> Audio Navigation </h2>
+            <h3> Ensure your mic is enabled to use this feature. Ask the computer to: </h3>
+            <ul>
+                <li> Navigate to a different page </li>
+                <li> Change the page color </li>
+                <li> Say "Hello!" back to you </li>
+            </ul>
+            <br>
+            <button type="button" class="submit" id="startListening"> Turn On Listening </button>
+            <button type="button" class="submit" id="stopListening"> Turn Off Listening </button>
+            <br>
+        </div>
 
     <br>
 
