@@ -4,6 +4,8 @@
 <head>
     <title> Dogs </title>
     <link rel="stylesheet" type="text/css" href="style.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
     <script src="script.js" defer></script>
     <style>
         .container {
@@ -31,7 +33,6 @@
         <h2 style="text-align: center;">Dog Carousel</h2>
 
         <div class="slideshow-container" id="carousel-container">
-            <!-- Slides will be inserted here dynamically -->
             
             <a class="prev" onclick="plusSlides(-1)"></a>
             <a class="next" onclick="plusSlides(1)"></a>
@@ -40,20 +41,32 @@
         <br>
 
         <div style="text-align:center" id="dots-container">
-            <!-- Dots will be inserted here dynamically -->
         </div>
-        
-    <hr>
 
-    <h2>Dog Breeds</h2>
+        <br>
+
     <div id="breedsContainer"></div>
 
-    <div id="breedInfo">
-        <h3 id="breedName"></h3>
-        <p id="breedDesc"></p>
-        <p><strong>Life Span:</strong> <span id="breedLife"></span> years</p>
+    <div id="breedInfo" style="display:none;">
+        <h3 style="color:black;"><strong> Name: </strong> <span id="breedName"> </span> </h3>
+        <p><strong> Description: </strong> <span id="breedDesc"> </span> </p>
+        <p><strong> Life Span: </strong> <span id="breedLife"> </span> years </p>
     </div>
 
+    </div>
+
+    <div class="sub-section">
+        <h2> Audio Navigation </h2>
+        <h3> Ensure your mic is enabled to use this feature. Ask the computer to: </h3>
+        <ul>
+            <li> Navigate to a different page </li>
+            <li> Change the page color </li>
+            <li> Say "Hello!" back to you </li>
+        </ul>
+        <br>
+        <button type="button" class="submit" id="startListening"> Turn On Listening </button>
+        <button type="button" class="submit" id="stopListening"> Turn Off Listening </button>
+        <br>
     </div>
 
     <footer>
