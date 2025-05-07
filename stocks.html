@@ -24,6 +24,7 @@
     </nav>
 
     <div class="container" style="padding: 10px; text-align: center;">
+        <div class="main-content">
             <br>
             <h2> Stock Charts </h2> 
 
@@ -42,8 +43,6 @@
                 <canvas id="stockChart"></canvas>
             </div>
         
-        
-
         <div class="container" style="margin: 30px auto; text-align: center;">
         <h2>Top 5 Stocks on Reddit</h2>
         <table>
@@ -56,23 +55,32 @@
             </thead>
             <tbody id="redditTableBody"></tbody>
         </table>
-
-        </div>
         </div>
 
         <div class="sub-section">
             <h2> Audio Navigation </h2>
             <h3> Ensure your mic is enabled to use this feature. Ask the computer to: </h3>
-            <ul>
-                <li> Navigate to a different page </li>
-                <li> Change the page color </li>
-                <li> Say "Hello!" back to you </li>
-            </ul>
-            <br>
+            <hr>
+            <p> <strong> Navigate to a different page: </strong> <p>
+                <p> &#128266 Say "Navigate to *page*"</p>
+            <hr>
+            <p> <strong> Change the page color: </strong> <p>
+                <p> &#128266 Say "Change the color to *color*"</p>
+            <hr>
+            <p> <strong> Say "Hello! back to you: </strong> <p>
+                <p> &#128266 Say "Hello!"</p>
+            <hr>
+            <p style="color:#ada26e;"> <strong> &#9733 New Feature </strong></p>
+            <p> <strong> Lookup stock data for a ticker: </strong> <p> 
+                <p> &#128266 Say "Lookup *ticker*"</p>
+            <hr>
             <button type="button" class="submit" id="startListening"> Turn On Listening </button>
             <button type="button" class="submit" id="stopListening"> Turn Off Listening </button>
             <br>
         </div>
+    </div>
+
+    </div>
 
     <br>
 
