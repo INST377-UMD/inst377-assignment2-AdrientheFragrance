@@ -97,17 +97,24 @@ const apiKey = "64zBN7D5tA5REqS3Kxt1LF5bevgfGUuY";
 
         const tableBody = document.getElementById("redditTableBody");
         redditData.forEach(stock => {
-            const row = document.createElement("tr");
-            const icon = stock.sentiment === "Bullish" ? "📈" : "📉";
             const sentimentClass = stock.sentiment === "Bullish" ? "bullish" : "bearish";
+            const iconUrl = stock.sentiment === "Bullish" 
+                ? "bullish.png" 
+                : "bearish.png";
 
+            const icon = `<a href="https://finance.yahoo.com/quote/${stock.ticker}" target="_blank">
+                            <img src="${iconUrl}" alt="${stock.sentiment}" style="width:50px; height:50px;">
+                        </a>`;
+
+            const row = document.createElement("tr");
             row.innerHTML = `
-                <td><a href="https://finance.yahoo.com/quote/${stock.ticker}" target="_blank"> ${stock.ticker} </a></td>
+                <td><a href="https://finance.yahoo.com/quote/${stock.ticker}" target="_blank">${stock.ticker}</a></td>
                 <td>${stock.no_of_comments}</td>
                 <td class="${sentimentClass}">${stock.sentiment} ${icon}</td>
             `;
             tableBody.appendChild(row);
         });
+
     }
 
     // Initialize
@@ -252,7 +259,54 @@ if (annyang) {
             } else {
                 alert("Page not found");
             }
+        },
+
+        // Lookup stock
+        'lookup *stock': function(stock) {
+            // Convert to uppercase ticker
+            stock = stock.toUpperCase();
+            const stockInput = document.getElementById('tickerInput');
+            if (stockInput) {
+                stockInput.value = stock;
+                const fetchButton = document.getElementById('fetchButton');
+                if (fetchButton) {
+                    fetchButton.click();
+                } else if (typeof fetchStockData === 'function') {
+                    fetchStockData();                
+                }
+            } else {
+                alert('Stock input field not found!');
+            }
+        },
+        
+        // Load dog breed
+        'load dog breed *breed': function(breed) {
+            const breedsContainer = document.getElementById('breedsContainer');
+            const breedInfo = document.getElementById('breedInfo');
+
+            // Fetch the list of breeds
+            fetch('https://dogapi.dog/api/v2/breeds')
+                .then(response => response.json())
+                .then(data => {
+                    const breeds = data.data;
+                    // Find breed by name 
+                    const breedMatch = breeds.find(b => b.attributes.name.toLowerCase() === breed.toLowerCase());
+
+                    if (breedMatch) {
+                        showBreedInfo(breedMatch);  // pass the full breed object
+                    }
+                    else {
+                        breedInfo.innerHTML = `<p>Breed not found: ${breed}</p>`;
+                        breedInfo.style.display = 'block'; // show message
+                    }
+                })
+                .catch(error => {
+                    breedInfo.innerHTML = `<p>Error fetching breeds list.</p>`;
+                    breedInfo.style.display = 'block'; // show error
+                    console.error(error);
+                });
         }
+
     };
 
     // Add the commands to annyang
