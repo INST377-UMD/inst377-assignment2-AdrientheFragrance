@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+        <title> Javascript Activities </title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.1/annyang.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/SpeechKITT/0.3.0/speechkitt.min.js"></script>
+        <script defer src="script.js"></script>
+    </head>
+
+    <body">
+
+        <header>
+            <h1> Javascript Activities </h1>
+        </header>
+
+        <nav id="nav">
+            <ul>
+                <li><a href="home.html"> Home </a></li>
+                <li><a href="stocks.html"> Stocks </a></li>
+                <li><a href="dogs.html"> Dogs </a></li>
+            </ul>
+        </nav>
+
+        <div class="container">
+            <div class="main-content">
+                <h2> Here are some Javascript activities we can try: </h2>
+                
+                <button class="button-54" role="button"><a href="stocks.html"> Browse Stocks </a></button>
+                <button class="button-54" role="button"><a href="dogs.html"> Learn About Dogs </a></button>
+
+                <div class="sub-section">
+                    <h2> Quote of the Day </h2>
+                        <h3> Refresh the page to generate a new quote: </h3>
+                        <p id="quote"> Loading... </p>
+                        <p id="author"> </p>
+                        <br>
+                </div>
+                <div class="sub-section">
+                    <h2> Audio Navigation </h2>
+                    <h3> Ensure your mic is enabled to use this feature. Ask the computer to: </h3>
+                    <hr>
+                    <p> <strong> Navigate to a different page: </strong> <p>
+                        <p> &#128266 Say "Navigate to *page*"</p>
+                        <hr>
+                        <p> <strong> Change the page color: </strong> <p>
+                            <p> &#128266 Say "Change the color to *color*"</p>
+                        <hr>
+                    <p> <strong> Say "Hello! back to you: </strong> <p>
+                        <p> &#128266 Say "Hello!"</p>
+                    <hr>
+                    <button type="button" class="submit" id="startListening"> Turn On Listening </button>
+                    <button type="button" class="submit" id="stopListening"> Turn Off Listening </button>
+                    <br>
+                </div>
+                
+            </div>
+        </div>
+
+        <br>
+
+        <footer>
+            <p> Copyright @ 2025. All rights reserved. </p>
+        </footer>
+
+    </body>
+
+</html>
